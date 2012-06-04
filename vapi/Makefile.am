@@ -190,6 +190,10 @@ dist_vapi_DATA = \
 	lua.vapi \
 	mx-1.0.deps \
 	mx-1.0.vapi \
+	libnm-utils.deps \
+	libnm-utils.vapi \
+	libnm-glib.deps \
+	libnm-glib.vapi \
 	mysql.vapi \
 	orc-0.4.vapi \
 	pango.deps \
@@ -333,6 +337,8 @@ GIR_BINDINGS = \
 	libsoup-2.4 \
 	libwnck-3.0 \
 	mx-1.0 \
+	libnm-utils \
+	libnm-glib \
 	packagekit-glib2 \
 	pangocairo \
 	poppler-glib \
@@ -571,6 +577,11 @@ loudmouth-1.0:
 
 mx-1.0:
 	$(GENVAPI) --library $(srcdir)/mx-1.0 --metadatadir $(METADATADIR) $(METADATADIR)/Mx-1.0-custom.vala $(GIRDIR)/Mx-1.0.gir
+libnm-utils:
+	$(GENVAPI) --library $(srcdir)/libnm-utils --metadatadir $(METADATADIR) $(GIRDIR)/NetworkManager-1.0.gir
+
+libnm-glib:
+	$(GENVAPI) --library $(srcdir)/libnm-glib --metadatadir $(METADATADIR) $(GIRDIR)/NMClient-1.0.gir
 
 packagekit-glib2:
 	$(GENVAPI) --library $(srcdir)/packagekit-glib2 --metadatadir $(METADATADIR) --pkg gio-2.0 $(GIRDIR)/PackageKitGlib-1.0.gir
