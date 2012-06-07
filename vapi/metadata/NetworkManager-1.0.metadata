@@ -87,10 +87,15 @@ SettingValueIterFn             cheader_filename="nm-setting.h"
 VPNIterFunc                    cheader_filename="nm-setting-vpn.h"
 
 CONNECTION_PATH cheader_filename="nm-connection.h"
-DBUS_*                    parent="NM.DBus"     cheader_filename="NetworkManager.h"     name="DBUS_(.+)"
-DBUS_PATH_VPN             parent="NM.DBus"     cheader_filename="NetworkManagerVPN.h"  name="DBUS_(.+)"
-DBUS_PATH_VPN_CONNECTION  parent="NM.DBus"     cheader_filename="NetworkManagerVPN.h"  name="DBUS_(.+)"
-DBUS_VPN_*                parent="NM.DBus.VPN" cheader_filename="NetworkManagerVPN.h"  name="DBUS_VPN_(.+)"
+DBUS_*                    cheader_filename="NetworkManager.h"
+DBUS_PATH_VPN             cheader_filename="NetworkManagerVPN.h"
+DBUS_PATH_VPN_CONNECTION  cheader_filename="NetworkManagerVPN.h"
+DBUS_VPN_*                cheader_filename="NetworkManagerVPN.h"
+
+//DBUS_*                    parent="NM.DBus"     cheader_filename="NetworkManager.h"     name="DBUS_(.+)"
+//DBUS_PATH_VPN             parent="NM.DBus"     cheader_filename="NetworkManagerVPN.h"  name="DBUS_(.+)"
+//DBUS_PATH_VPN_CONNECTION  parent="NM.DBus"     cheader_filename="NetworkManagerVPN.h"  name="DBUS_(.+)"
+//DBUS_VPN_*                parent="NM.DBus.VPN" cheader_filename="NetworkManagerVPN.h"  name="DBUS_VPN_(.+)"
 
 SETTING_NAME         cheader_filename="nm-setting.h"
 
