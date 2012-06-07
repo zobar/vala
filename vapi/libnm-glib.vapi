@@ -196,10 +196,6 @@ namespace NM {
 		public const string DRIVER;
 		[CCode (cheader_filename = "nm-device.h", cname = "NM_DEVICE_FIRMWARE_MISSING")]
 		public const string FIRMWARE_MISSING;
-		[CCode (cheader_filename = "nm-device-infiniband.h", cname = "NM_DEVICE_INFINIBAND_CARRIER")]
-		public const string INFINIBAND_CARRIER;
-		[CCode (cheader_filename = "nm-device-infiniband.h", cname = "NM_DEVICE_INFINIBAND_HW_ADDRESS")]
-		public const string INFINIBAND_HW_ADDRESS;
 		[CCode (cheader_filename = "nm-device.h", cname = "NM_DEVICE_INTERFACE")]
 		public const string INTERFACE;
 		[CCode (cheader_filename = "nm-device.h", cname = "NM_DEVICE_IP4_CONFIG")]
@@ -210,16 +206,6 @@ namespace NM {
 		public const string IP_INTERFACE;
 		[CCode (cheader_filename = "nm-device.h", cname = "NM_DEVICE_MANAGED")]
 		public const string MANAGED;
-		[CCode (cheader_filename = "nm-device-modem.h", cname = "NM_DEVICE_MODEM_CURRENT_CAPABILITIES")]
-		public const string MODEM_CURRENT_CAPABILITIES;
-		[CCode (cheader_filename = "nm-device-modem.h", cname = "NM_DEVICE_MODEM_MODEM_CAPABILITIES")]
-		public const string MODEM_MODEM_CAPABILITIES;
-		[CCode (cheader_filename = "nm-device-olpc-mesh.h", cname = "NM_DEVICE_OLPC_MESH_ACTIVE_CHANNEL")]
-		public const string OLPC_MESH_ACTIVE_CHANNEL;
-		[CCode (cheader_filename = "nm-device-olpc-mesh.h", cname = "NM_DEVICE_OLPC_MESH_COMPANION")]
-		public const string OLPC_MESH_COMPANION;
-		[CCode (cheader_filename = "nm-device-olpc-mesh.h", cname = "NM_DEVICE_OLPC_MESH_HW_ADDRESS")]
-		public const string OLPC_MESH_HW_ADDRESS;
 		[CCode (cheader_filename = "nm-device.h", cname = "NM_DEVICE_PRODUCT")]
 		public const string PRODUCT;
 		[CCode (cheader_filename = "nm-device.h", cname = "NM_DEVICE_STATE")]
@@ -232,17 +218,9 @@ namespace NM {
 		public const string VENDOR;
 		[CCode (has_construct_function = false, type = "GObject*")]
 		public Device (DBus.Connection connection, string path);
-		[CCode (cheader_filename = "nm-device-adsl.h")]
-		public static GLib.Quark adsl_error_quark ();
-		[CCode (cheader_filename = "nm-device-bond.h")]
-		public static GLib.Quark bond_error_quark ();
-		[CCode (cheader_filename = "nm-device-bt.h")]
-		public static GLib.Quark bt_error_quark ();
 		public virtual bool connection_compatible (NM.Connection connection) throws GLib.Error;
 		public bool connection_valid (NM.Connection connection);
 		public void disconnect (NM.DeviceDeactivateFn? callback);
-		[CCode (cheader_filename = "nm-device-ethernet.h")]
-		public static GLib.Quark ethernet_error_quark ();
 		public GLib.SList<weak NM.Connection> filter_connections (GLib.SList<NM.Connection> connections);
 		public unowned NM.ActiveConnection get_active_connection ();
 		public bool get_autoconnect ();
@@ -262,19 +240,7 @@ namespace NM {
 		public NM.DeviceState get_state_reason (out NM.DeviceStateReason reason);
 		public unowned string get_udi ();
 		public unowned string get_vendor ();
-		[CCode (cheader_filename = "nm-device-infiniband.h")]
-		public static GLib.Quark infiniband_error_quark ();
-		[CCode (cheader_filename = "nm-device-modem.h")]
-		public static GLib.Quark modem_error_quark ();
-		[CCode (cheader_filename = "nm-device-olpc-mesh.h")]
-		public static GLib.Quark olpc_mesh_error_quark ();
 		public void set_autoconnect (bool autoconnect);
-		[CCode (cheader_filename = "nm-device-vlan.h")]
-		public static GLib.Quark vlan_error_quark ();
-		[CCode (cheader_filename = "nm-device-wifi.h")]
-		public static GLib.Quark wifi_error_quark ();
-		[CCode (cheader_filename = "nm-device-wimax.h")]
-		public static GLib.Quark wimax_error_quark ();
 		public NM.ActiveConnection active_connection { get; }
 		public bool autoconnect { get; set; }
 		public uint capabilities { get; }
@@ -360,6 +326,10 @@ namespace NM {
 	}
 	[CCode (cheader_filename = "nm-device-infiniband.h", type_id = "nm_device_infiniband_get_type ()")]
 	public class DeviceInfiniband : NM.Device, GLib.AsyncInitable, GLib.Initable {
+		[CCode (cheader_filename = "nm-device-infiniband.h", cname = "NM_DEVICE_INFINIBAND_CARRIER")]
+		public const string CARRIER;
+		[CCode (cheader_filename = "nm-device-infiniband.h", cname = "NM_DEVICE_INFINIBAND_HW_ADDRESS")]
+		public const string HW_ADDRESS;
 		[CCode (has_construct_function = false, type = "GObject*")]
 		public DeviceInfiniband (DBus.Connection connection, string path);
 		public bool get_carrier ();
@@ -369,6 +339,10 @@ namespace NM {
 	}
 	[CCode (cheader_filename = "nm-device-modem.h", type_id = "nm_device_modem_get_type ()")]
 	public class DeviceModem : NM.Device, GLib.AsyncInitable, GLib.Initable {
+		[CCode (cheader_filename = "nm-device-modem.h", cname = "NM_DEVICE_MODEM_CURRENT_CAPABILITIES")]
+		public const string CURRENT_CAPABILITIES;
+		[CCode (cheader_filename = "nm-device-modem.h", cname = "NM_DEVICE_MODEM_MODEM_CAPABILITIES")]
+		public const string MODEM_CAPABILITIES;
 		[CCode (has_construct_function = false)]
 		protected DeviceModem ();
 		public NM.DeviceModemCapabilities get_current_capabilities ();
@@ -378,6 +352,12 @@ namespace NM {
 	}
 	[CCode (cheader_filename = "nm-device-olpc-mesh.h", type_id = "nm_device_olpc_mesh_get_type ()")]
 	public class DeviceOlpcMesh : NM.Device, GLib.AsyncInitable, GLib.Initable {
+		[CCode (cheader_filename = "nm-device-olpc-mesh.h", cname = "NM_DEVICE_OLPC_MESH_ACTIVE_CHANNEL")]
+		public const string MESH_ACTIVE_CHANNEL;
+		[CCode (cheader_filename = "nm-device-olpc-mesh.h", cname = "NM_DEVICE_OLPC_MESH_COMPANION")]
+		public const string MESH_COMPANION;
+		[CCode (cheader_filename = "nm-device-olpc-mesh.h", cname = "NM_DEVICE_OLPC_MESH_HW_ADDRESS")]
+		public const string MESH_HW_ADDRESS;
 		[CCode (has_construct_function = false, type = "GObject*")]
 		public DeviceOlpcMesh (DBus.Connection connection, string path);
 		public uint32 get_active_channel ();
@@ -542,8 +522,6 @@ namespace NM {
 		public const string DBUS_PATH;
 		[CCode (has_construct_function = false)]
 		protected Object ();
-		[CCode (cheader_filename = "nm-object.h")]
-		public static GLib.Quark error_quark ();
 		public unowned DBus.Connection get_connection ();
 		public unowned string get_path ();
 		[NoAccessorMethod]
@@ -592,8 +570,6 @@ namespace NM {
 		public unowned NM.RemoteConnection get_connection_by_uuid (string uuid);
 		public GLib.SList<weak NM.RemoteConnection> list_connections ();
 		public bool save_hostname (string hostname, NM.RemoteSettingsSaveHostnameFunc? callback);
-		[CCode (cheader_filename = "nm-remote-settings.h", cname = "nm_remote_settings_error_quark")]
-		public static GLib.Quark settings_error_quark ();
 		[NoAccessorMethod]
 		public bool can_modify { get; }
 		[NoAccessorMethod]
@@ -618,8 +594,6 @@ namespace NM {
 		[NoWrapper]
 		public virtual void cancel_get_secrets (string connection_path, string setting_name);
 		public void delete_secrets (NM.Connection connection, NM.SecretAgentDeleteSecretsFunc callback);
-		[CCode (cheader_filename = "nm-secret-agent.h")]
-		public static GLib.Quark error_quark ();
 		public bool get_registered ();
 		public void get_secrets (NM.Connection connection, string setting_name, [CCode (array_length = false, array_null_terminated = true)] string[] hints, NM.SecretAgentGetSecretsFlags flags, NM.SecretAgentGetSecretsFunc callback);
 		public bool register ();
@@ -707,7 +681,9 @@ namespace NM {
 		[CCode (cname = "NM_DEVICE_ADSL_ERROR_NOT_ADSL_CONNECTION")]
 		NOTADSLCONNECTION,
 		[CCode (cname = "NM_DEVICE_ADSL_ERROR_INVALID_ADSL_CONNECTION")]
-		INVALIDADSLCONNECTION
+		INVALIDADSLCONNECTION;
+		[CCode (cheader_filename = "nm-device-adsl.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-device-bond.h", cprefix = "NM_DEVICE_BOND_ERROR_")]
 	public enum DeviceBondError {
@@ -718,7 +694,9 @@ namespace NM {
 		[CCode (cname = "NM_DEVICE_BOND_ERROR_INVALID_BOND_CONNECTION")]
 		INVALIDBONDCONNECTION,
 		[CCode (cname = "NM_DEVICE_BOND_ERROR_INTERFACE_MISMATCH")]
-		INTERFACEMISMATCH
+		INTERFACEMISMATCH;
+		[CCode (cheader_filename = "nm-device-bond.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-device-bt.h", cprefix = "NM_DEVICE_BT_ERROR_")]
 	public enum DeviceBtError {
@@ -733,7 +711,9 @@ namespace NM {
 		[CCode (cname = "NM_DEVICE_BT_ERROR_MAC_MISMATCH")]
 		MACMISMATCH,
 		[CCode (cname = "NM_DEVICE_BT_ERROR_MISSING_DEVICE_CAPS")]
-		MISSINGDEVICECAPS
+		MISSINGDEVICECAPS;
+		[CCode (cheader_filename = "nm-device-bt.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-device-ethernet.h", cprefix = "NM_DEVICE_ETHERNET_ERROR_")]
 	public enum DeviceEthernetError {
@@ -746,7 +726,9 @@ namespace NM {
 		[CCode (cname = "NM_DEVICE_ETHERNET_ERROR_INVALID_DEVICE_MAC")]
 		INVALIDDEVICEMAC,
 		[CCode (cname = "NM_DEVICE_ETHERNET_ERROR_MAC_MISMATCH")]
-		MACMISMATCH
+		MACMISMATCH;
+		[CCode (cheader_filename = "nm-device-ethernet.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-device-infiniband.h", cprefix = "NM_DEVICE_INFINIBAND_ERROR_")]
 	public enum DeviceInfinibandError {
@@ -759,7 +741,9 @@ namespace NM {
 		[CCode (cname = "NM_DEVICE_INFINIBAND_ERROR_INVALID_DEVICE_MAC")]
 		INVALIDDEVICEMAC,
 		[CCode (cname = "NM_DEVICE_INFINIBAND_ERROR_MAC_MISMATCH")]
-		MACMISMATCH
+		MACMISMATCH;
+		[CCode (cheader_filename = "nm-device-infiniband.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-device-modem.h", cprefix = "NM_DEVICE_MODEM_ERROR_")]
 	public enum DeviceModemError {
@@ -770,7 +754,9 @@ namespace NM {
 		[CCode (cname = "NM_DEVICE_MODEM_ERROR_INVALID_MODEM_CONNECTION")]
 		INVALIDMODEMCONNECTION,
 		[CCode (cname = "NM_DEVICE_MODEM_ERROR_MISSING_DEVICE_CAPS")]
-		MISSINGDEVICECAPS
+		MISSINGDEVICECAPS;
+		[CCode (cheader_filename = "nm-device-modem.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-device-olpc-mesh.h", cprefix = "NM_DEVICE_OLPC_MESH_ERROR_")]
 	public enum DeviceOlpcMeshError {
@@ -779,7 +765,9 @@ namespace NM {
 		[CCode (cname = "NM_DEVICE_OLPC_MESH_ERROR_NOT_OLPC_MESH_CONNECTION")]
 		NOTOLPCMESHCONNECTION,
 		[CCode (cname = "NM_DEVICE_OLPC_MESH_ERROR_INVALID_OLPC_MESH_CONNECTION")]
-		INVALIDOLPCMESHCONNECTION
+		INVALIDOLPCMESHCONNECTION;
+		[CCode (cheader_filename = "nm-device-olpc-mesh.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-device-vlan.h", cprefix = "NM_DEVICE_VLAN_ERROR_")]
 	public enum DeviceVlanError {
@@ -792,7 +780,9 @@ namespace NM {
 		[CCode (cname = "NM_DEVICE_VLAN_ERROR_ID_MISMATCH")]
 		IDMISMATCH,
 		[CCode (cname = "NM_DEVICE_VLAN_ERROR_INTERFACE_MISMATCH")]
-		INTERFACEMISMATCH
+		INTERFACEMISMATCH;
+		[CCode (cheader_filename = "nm-device-vlan.h", cname = "nm_device_vlan_error_quark")]
+		public static GLib.Quark _quark ();
 	}
 	[CCode (cheader_filename = "nm-device-wifi.h", cprefix = "NM_DEVICE_WIFI_ERROR_")]
 	public enum DeviceWifiError {
@@ -809,7 +799,9 @@ namespace NM {
 		[CCode (cname = "NM_DEVICE_WIFI_ERROR_MISSING_DEVICE_WPA_CAPS")]
 		MISSINGDEVICEWPACAPS,
 		[CCode (cname = "NM_DEVICE_WIFI_ERROR_MISSING_DEVICE_RSN_CAPS")]
-		MISSINGDEVICERSNCAPS
+		MISSINGDEVICERSNCAPS;
+		[CCode (cheader_filename = "nm-device-wifi.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-device-wimax.h", cprefix = "NM_DEVICE_WIMAX_ERROR_")]
 	public enum DeviceWimaxError {
@@ -822,12 +814,16 @@ namespace NM {
 		[CCode (cname = "NM_DEVICE_WIMAX_ERROR_INVALID_DEVICE_MAC")]
 		INVALIDDEVICEMAC,
 		[CCode (cname = "NM_DEVICE_WIMAX_ERROR_MAC_MISMATCH")]
-		MACMISMATCH
+		MACMISMATCH;
+		[CCode (cheader_filename = "nm-device-wimax.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-object.h", cprefix = "NM_OBJECT_ERROR_")]
 	public enum ObjectError {
 		UNKNOWN,
-		OBJECT_CREATION_FAILURE
+		OBJECT_CREATION_FAILURE;
+		[CCode (cheader_filename = "nm-object.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-remote-settings.h", cprefix = "NM_REMOTE_SETTINGS_ERROR_")]
 	public enum RemoteSettingsError {
@@ -836,7 +832,9 @@ namespace NM {
 		[CCode (cname = "NM_REMOTE_SETTINGS_ERROR_CONNECTION_REMOVED")]
 		CONNECTIONREMOVED,
 		[CCode (cname = "NM_REMOTE_SETTINGS_ERROR_CONNECTION_UNAVAILABLE")]
-		CONNECTIONUNAVAILABLE
+		CONNECTIONUNAVAILABLE;
+		[CCode (cheader_filename = "nm-remote-settings.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-secret-agent.h", cprefix = "NM_SECRET_AGENT_ERROR_")]
 	public enum SecretAgentError {
@@ -851,7 +849,9 @@ namespace NM {
 		[CCode (cname = "NM_SECRET_AGENT_ERROR_INTERNAL_ERROR")]
 		INTERNALERROR,
 		[CCode (cname = "NM_SECRET_AGENT_ERROR_NO_SECRETS")]
-		NOSECRETS
+		NOSECRETS;
+		[CCode (cheader_filename = "nm-secret-agent.h")]
+		public static GLib.Quark quark ();
 	}
 	[CCode (cheader_filename = "nm-secret-agent.h", cprefix = "NM_SECRET_AGENT_GET_SECRETS_FLAG_")]
 	public enum SecretAgentGetSecretsFlags {
