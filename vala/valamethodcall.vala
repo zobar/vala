@@ -291,6 +291,7 @@ public class Vala.MethodCall : Expression {
 
 			var struct_creation_expression = new ObjectCreationExpression ((MemberAccess) call, source_reference);
 			struct_creation_expression.struct_creation = true;
+			struct_creation_expression.struct_chainup = is_chainup;
 			foreach (Expression arg in get_argument_list ()) {
 				struct_creation_expression.add_argument (arg);
 			}
@@ -669,7 +670,19 @@ public class Vala.MethodCall : Expression {
 	}
 
 	public override void get_defined_variables (Collection<Variable> collection) {
-		call.get_defined_variables (collection);
+		if (is_chainup) {
+			var this_parameter = call.symbol_reference as Parameter;
+			if (this_parameter == null) {
+				Symbol sym = (Block)parent_statement.parent_node;
+				do {
+					sym = sym.parent_symbol;
+				} while (sym is Block);
+				this_parameter = ((Method)sym).this_parameter;
+			}
+			collection.add (this_parameter);
+		} else {
+			call.get_defined_variables (collection);
+		}
 
 		foreach (Expression arg in argument_list) {
 			arg.get_defined_variables (collection);
@@ -677,7 +690,9 @@ public class Vala.MethodCall : Expression {
 	}
 
 	public override void get_used_variables (Collection<Variable> collection) {
-		call.get_used_variables (collection);
+		if (!is_chainup) {
+			call.get_used_variables (collection);
+		}
 
 		foreach (Expression arg in argument_list) {
 			arg.get_used_variables (collection);
