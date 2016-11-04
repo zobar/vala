@@ -54,16 +54,6 @@ TESTS = \
 	chainup/struct-base-foo.vala \
 	chainup/struct-this.vala \
 	chainup/struct-this-foo.vala \
-	chainup/class-base-foo-invalid.test \
-	chainup/class-base-invalid.test \
-	chainup/class-object-invalid.test \
-	chainup/class-this-foo-invalid.test \
-	chainup/class-this-invalid.test \
-	chainup/class-with-lambda-invalid.test \
-	chainup/struct-base-foo-invalid.test \
-	chainup/struct-base-invalid.test \
-	chainup/struct-this-foo-invalid.test \
-	chainup/struct-this-invalid.test \
 	pointers/bug590641.vala \
 	namespaces.vala \
 	methods/lambda.vala \
