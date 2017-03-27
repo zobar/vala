@@ -135,6 +135,9 @@ public class Vala.GObjectModule : GTypeModule {
 		var props = cl.get_properties ();
 		foreach (Property prop in props) {
 			if (!is_gobject_property (prop)) {
+				if (!has_valid_gobject_property_type (prop)) {
+					Report.warning (prop.source_reference, "Type `%s' can not be used for a GLib.Object property".printf (prop.property_type.to_qualified_string ()));
+				}
 				continue;
 			}
 
@@ -723,22 +726,7 @@ public class Vala.GObjectModule : GTypeModule {
 			return false;
 		}
 
-		var st = prop.property_type.data_type as Struct;
-		if (st != null && (!get_ccode_has_type_id (st) || prop.property_type.nullable)) {
-			return false;
-		}
-
-		var en = prop.property_type.data_type as Enum;
-		if (en != null && (!get_ccode_has_type_id (en) || prop.property_type.nullable)) {
-			return false;
-		}
-
-		if (prop.property_type is ArrayType && ((ArrayType)prop.property_type).element_type.data_type != string_type.data_type) {
-			return false;
-		}
-
-		var d = prop.property_type as DelegateType;
-		if (d != null && d.delegate_symbol.has_target) {
+		if (!has_valid_gobject_property_type (prop)) {
 			return false;
 		}
 
@@ -760,6 +748,31 @@ public class Vala.GObjectModule : GTypeModule {
 
 		if (type_sym is Interface && type_sym.get_attribute ("DBus") != null) {
 			// GObject properties not currently supported in D-Bus interfaces
+			return false;
+		}
+
+		return true;
+	}
+
+	bool has_valid_gobject_property_type (Property prop) {
+		var prop_type = prop.property_type;
+
+		var st = prop_type.data_type as Struct;
+		if (st != null && (!get_ccode_has_type_id (st) || prop_type.nullable)) {
+			return false;
+		}
+
+		var en = prop_type.data_type as Enum;
+		if (en != null && (!get_ccode_has_type_id (en) || prop_type.nullable)) {
+			return false;
+		}
+
+		if (prop_type is ArrayType && ((ArrayType) prop_type).element_type.data_type != string_type.data_type) {
+			return false;
+		}
+
+		var d = prop_type as DelegateType;
+		if (d != null && d.delegate_symbol.has_target) {
 			return false;
 		}
 
