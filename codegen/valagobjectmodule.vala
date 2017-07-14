@@ -728,6 +728,11 @@ public class Vala.GObjectModule : GTypeModule {
 			return false;
 		}
 
+		var en = prop.property_type.data_type as Enum;
+		if (en != null && (!get_ccode_has_type_id (en) || prop.property_type.nullable)) {
+			return false;
+		}
+
 		if (prop.property_type is ArrayType && ((ArrayType)prop.property_type).element_type.data_type != string_type.data_type) {
 			return false;
 		}
