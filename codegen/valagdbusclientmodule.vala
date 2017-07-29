@@ -493,7 +493,7 @@ public class Vala.GDBusClientModule : GDBusModule {
 			if (requires_destroy (owned_type)) {
 				// keep local alive (symbol_reference is weak)
 				var local = new LocalVariable (owned_type, param.name);
-				ccode.add_expression (destroy_local (local));
+				ccode.add_statement (destroy_local (local));
 			}
 		}
 

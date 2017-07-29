@@ -337,7 +337,7 @@ public abstract class Vala.CCodeControlFlowModule : CCodeMethodModule {
 
 		foreach (LocalVariable local in stmt.get_local_variables ()) {
 			if (requires_destroy (local.variable_type)) {
-				ccode.add_expression (destroy_local (local));
+				ccode.add_statement (destroy_local (local));
 			}
 		}
 

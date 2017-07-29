@@ -122,7 +122,7 @@ public class Vala.GAsyncModule : GtkModule {
 				}
 
 				if (requires_destroy (param_type)) {
-					ccode.add_expression (destroy_parameter (param));
+					ccode.add_statement (destroy_parameter (param));
 				}
 			}
 		}
@@ -131,11 +131,11 @@ public class Vala.GAsyncModule : GtkModule {
 			if (get_ccode_array_length (m) || !(m.return_type is ArrayType)) {
 				/* this is very evil. */
 				var v = new LocalVariable (m.return_type, ".result");
-				ccode.add_expression (destroy_local (v));
+				ccode.add_statement (destroy_local (v));
 			} else {
 				var v = new GLibValue (m.return_type, new CCodeIdentifier ("_data_->result"), true);
 				v.array_null_terminated = get_ccode_array_null_terminated (m);
-				ccode.add_expression (destroy_value (v));
+				ccode.add_statement (destroy_value (v));
 			}
 		}
 
@@ -144,7 +144,7 @@ public class Vala.GAsyncModule : GtkModule {
 			this_type.value_owned = true;
 
 			if (requires_destroy (this_type)) {
-				ccode.add_expression (destroy_parameter (m.this_parameter));
+				ccode.add_statement (destroy_parameter (m.this_parameter));
 			}
 		}
 
@@ -801,7 +801,7 @@ public class Vala.GAsyncModule : GtkModule {
 		/* free temporary objects */
 
 		foreach (var value in temp_ref_values) {
-			ccode.add_expression (destroy_value (value));
+			ccode.add_statement (destroy_value (value));
 		}
 
 		temp_ref_values.clear ();

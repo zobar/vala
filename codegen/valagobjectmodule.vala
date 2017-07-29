@@ -248,7 +248,7 @@ public class Vala.GObjectModule : GTypeModule {
 				add_guarded_expression (prop, csetcall);
 
 				if (requires_destroy (prop.get_accessor.value_type)) {
-					ccode.add_expression (destroy_value (new GLibValue (prop.get_accessor.value_type, new CCodeIdentifier ("boxed"), true)));
+					ccode.add_statement (destroy_value (new GLibValue (prop.get_accessor.value_type, new CCodeIdentifier ("boxed"), true)));
 				}
 				ccode.close ();
 			} else {

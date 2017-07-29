@@ -33,7 +33,7 @@ public class Vala.CCodeAssignmentModule : CCodeMemberAccessModule {
 
 		if (requires_destroy (assignment.left.value_type)) {
 			/* unref old value */
-			ccode.add_expression (destroy_value (assignment.left.target_value));
+			ccode.add_statement (destroy_value (assignment.left.target_value));
 		}
 
 		if (assignment.operator == AssignmentOperator.SIMPLE) {
@@ -172,7 +172,7 @@ public class Vala.CCodeAssignmentModule : CCodeMemberAccessModule {
 	public override void store_local (LocalVariable local, TargetValue value, bool initializer, SourceReference? source_reference = null) {
 		if (!initializer && requires_destroy (local.variable_type)) {
 			/* unref old value */
-			ccode.add_expression (destroy_local (local));
+			ccode.add_statement (destroy_local (local));
 		}
 
 		store_value (get_local_cvalue (local), value, source_reference);
@@ -209,7 +209,7 @@ public class Vala.CCodeAssignmentModule : CCodeMemberAccessModule {
 
 		if (requires_destroy (param_type)) {
 			/* unref old value */
-			ccode.add_expression (destroy_parameter (param));
+			ccode.add_statement (destroy_parameter (param));
 		}
 
 		store_value (get_parameter_cvalue (param), value, source_reference);
@@ -223,7 +223,7 @@ public class Vala.CCodeAssignmentModule : CCodeMemberAccessModule {
 		}
 		if (requires_destroy (type)) {
 			/* unref old value */
-			ccode.add_expression (destroy_field (field, instance));
+			ccode.add_statement (destroy_field (field, instance));
 		}
 
 		store_value (lvalue, value, source_reference);

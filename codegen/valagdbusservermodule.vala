@@ -302,7 +302,7 @@ public class Vala.GDBusServerModule : GDBusClientModule {
 					if (requires_destroy (m.return_type)) {
 						// keep local alive (symbol_reference is weak)
 						var local = new LocalVariable (m.return_type, ".result");
-						ccode.add_expression (destroy_local (local));
+						ccode.add_statement (destroy_local (local));
 					}
 				} else {
 					ccode.add_declaration (get_ccode_name (m.return_type), new CCodeVariableDeclarator ("result"));
@@ -321,7 +321,7 @@ public class Vala.GDBusServerModule : GDBusClientModule {
 					if (requires_destroy (m.return_type)) {
 						// keep local alive (symbol_reference is weak)
 						var local = new LocalVariable (m.return_type, ".result");
-						ccode.add_expression (destroy_local (local));
+						ccode.add_statement (destroy_local (local));
 					}
 				}
 			}
@@ -390,7 +390,7 @@ public class Vala.GDBusServerModule : GDBusClientModule {
 				if (requires_destroy (owned_type)) {
 					// keep local alive (symbol_reference is weak)
 					var local = new LocalVariable (owned_type, get_variable_cname (param.name));
-					ccode.add_expression (destroy_local (local));
+					ccode.add_statement (destroy_local (local));
 				}
 			}
 		}
@@ -519,7 +519,7 @@ public class Vala.GDBusServerModule : GDBusClientModule {
 			if (requires_destroy (prop.get_accessor.value_type)) {
 				// keep local alive (symbol_reference is weak)
 				var local = new LocalVariable (prop.get_accessor.value_type, ".result");
-				ccode.add_expression (destroy_local (local));
+				ccode.add_statement (destroy_local (local));
 			}
 		}
 
@@ -579,7 +579,7 @@ public class Vala.GDBusServerModule : GDBusClientModule {
 			if (requires_destroy (owned_type)) {
 				// keep local alive (symbol_reference is weak)
 				var local = new LocalVariable (owned_type, "value");
-				ccode.add_expression (destroy_local (local));
+				ccode.add_statement (destroy_local (local));
 			}
 		}
 
